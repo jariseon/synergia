@@ -1,0 +1,293 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<style>
+  * { user-select:none; cursor:arrow; }
+  body { margin:0; font-family:sans-serif; background:#151517; color:#aeaeae; overflow-y:hidden; }
+  main { display:flex; height:100%; }
+  .asset { margin-bottom:10; padding:15; border:1px solid #000; background:#18181a; }
+
+  #sidebar { min-width:150px; padding:20 20 20 25; border-right:1px solid #000; background:#18181a; }
+  #title { font-size:1.8rem; font-weight:800; -webkit-text-stroke:1.1px #ccc; color:#ccc; cursor:pointer; }
+	#title span.outline { margin-left:1px; font-size:1.75rem; color:transparent; }
+	#title span.tail { margin-left:3px; font-size:1.1rem; letter-spacing:1px; }
+  #subtitle { margin:2 0 10 0; font-size:12px; font-style:italic; }
+  ul { list-style:none; padding:0; }
+  li { padding:2; margin-bottom:2; font-size:0.9rem; cursor:pointer; }
+  li.active { color:aliceblue; }
+  li:hover {  border-radius:5px; background:#151517; }
+
+  section { max-width:910px; padding:20 40; overflow-y:scroll; }
+  section.hidden { display:none; }
+  h2,h3 { margin:0; font-size:1rem; font-weight:100; color:#c29c4f; }
+  h2 { margin-bottom:7; padding-bottom:5; border-bottom:1px solid #777; }
+  h3 { margin-bottom:10; font-size:0.9rem; }
+  img { max-width:900; width:100%; }
+  p { margin-top:0; line-height:1.4; text-align:justify; font-size:0.9rem; }
+  a { text-decoration:none; font-weight:100; color:#e8810b; cursor:pointer; }
+  b { font-weight:400; color:aliceblue; }
+  i { font-style:normal; color:#ccc; }
+
+  #docs { padding:25 40; }
+  #docs span { font-size:0.8rem; color:#ccc; }
+  #docs .asset { padding:10; }
+  #fx span { color:aliceblue; }
+  #fx i { font-size:0.9rem; }
+
+  @media (max-width:480px) and (orientation:portrait) {
+    #sidebar { border-bottom:1px solid #000; position:fixed; top:0; width:100%; padding:10 10 5 10; }
+    #sidebar ul { display:none; }
+    main { display:block; overflow-y:scroll; }
+    section, #docs { display:block !important; padding:0 20; }
+    #beta { padding-bottom:20; }
+    #home { margin-top:5.5rem; }
+    p { margin:20 0; }
+    .asset { padding:5 !important; margin-bottom:0; }
+  }
+</style>
+<script>
+  function showPage (id) {
+    let menuItem = document.querySelector("#" + id);
+    document.querySelectorAll("#sidebar li").forEach(li => { li.classList.remove("active"); });
+    menuItem.classList.add("active");
+    document.querySelectorAll("section").forEach(s => { s.classList.add("hidden"); });
+    let section = document.querySelector("#" + id.substr(5));
+    if (section) section.classList.remove("hidden");
+  }
+  function main() {
+    document.querySelector("#title").onclick = e => showPage("menu-home");
+    document.querySelector("ul").onclick = e => showPage(e.target.id);
+  }
+</script>
+</head>
+<body onload="main()">
+  <main>
+
+  <nav id="sidebar">
+    <div id="title">SYN<span class="outline">ERG</span><span class="tail">IA</span></div>
+    <div id="subtitle">dki Synergy emulation</div>
+    <ul>
+      <li id="menu-home" class="active">home</li>
+      <li id="menu-docs">docs</li>
+      <li id="menu-credits">credits</li>
+      <li id="menu-beta">for beta testers</li>
+    </ul>
+  </nav>
+
+  <section id="home">
+    <div class="asset">
+      <img src="res/synergia.png">
+    </div>
+    <p><b>SYNERGIA</b> emulates the
+      <a href="https://encyclotronic.com/synthesizers/digital-keyboards/digital-keyboards-synergy-r458/" target="_blank">
+      dki Synergy</a> synthesizer as a VST3/AU plugin.
+      The original Synergy was released in 1982 as one of the first commercial digital synthesizers,
+      featuring additive and FM synthesis in its core.
+      It appears on several Wendy Carlos' works, including the <i>Tron</i> soundtrack and the classic
+      <i>Beauty in the Beast</i> album, as well as on Donald Fagen's first solo album <i>Nightfly</i>.
+      Synergy is based on earlier
+      <a href="https://encyclotronic.com/synthesizers/digital-keyboards/crumar-general-development-system-gds-r457/" target="_blank">
+      Crumar GDS</a> and Bell Labs
+      <a href="https://en.wikipedia.org/wiki/Bell_Labs_Digital_Synthesizer" target="_blank">
+      Alles Machine</a> designs.
+    </p>
+    <p><b>Synergia</b> plugin attempts to reproduce Synergy's sound as accurately as possible.
+      The plugin runs the original eprom binary in an emulated z80 environment, and models the discrete
+      oscillator board in integer arithmetic. Other subsystems such as the front panel, keyboard,
+      sequencer, cartridge, midi and external control ports are modeled as well. Analog board
+      antialiasing filter's linear properties are approximated, but nonlinearities of the DAC,
+      filter and amp sections are yet to be implemented. The plugin has preliminary support for
+      Wendy Carlos' custom microtonal Synergy build.
+    </p>
+    <p>The plugin is currently in beta testing. If things proceed as planned, the downloads will appear
+      here in late November 2020. For more info contact <a href="mailto:jariseon@yahoo.com">jariseon -at- yahoo.com</a>
+    </p>
+  </section>
+
+  <section id="docs" class="hidden">
+    <h2>Quick Start</h2>
+    <h3>installation</h3>
+    <p>The downloaded zip file contains a Mac or Windows installer for standalone, vst3
+      and au plugins. Double-click the pkg (Mac) or exe (Windows) file and follow the installer wizard.
+      The binaries are unsigned, so Catalina users might need an additional step as explained in this
+      brief <a href="https://www.youtube.com/watch?v=AHoTH-OWGnA" target="_blank">video</a>.
+    </p>
+
+    <h3>Synergy cartridge images</h3>
+    <p><b>Synergia</b> supports CRT files in original Synergy cartridge format. These can be found
+      online, or prepared using the
+      <a href="https://chinenual.github.io/synergize/" target="_blank">Synergize</a> patch
+      editor/librarian. The CRT files are variable length, around 8kB in size
+    </p>
+    <p>One or more CRT fies may be dropped onto the plugin gui to make them appear in the
+      <span>BANK</span> combobox.
+      Mac version also accepts a folder of CRT files. When dropped, all CRT files contained in the folder
+      become available in the current session, as well as in future launches of the plugin. In Windows,
+      the related cartridges folder is located in Application Data/username/Roaming/Synergia folder.
+    </p>
+
+    <h2 style="margin-top:20;">Operation</h2>
+    <p>The operation of the plugin follows the hardware Synergy as explained in the original
+      <a href="https://encyclotronic.com/uploads/13823c33de54c6717622a56b9850f0df.pdf" target="_blank">
+      user manual</a>. Plugin specific details are described briefly below.
+    </p>
+
+    <h3>Switches and Knobs</h3>
+    <p>Synergia's front panel controls mimic their hardware counterparts. In short: an active
+      <i>switch</i> is indicated with a lit red led. Some switches have multiple states, which are
+      indicated
+      with a slow/fast blinking led.
+      Most <i>knobs</i> also have a led, which is lit when the knob is in tracking, i.e., active mode.
+      To activate a knob, turn it all the way to left, and then right until the led above it becomes lit.
+    </p>
+
+    <h3>Top Row</h3>
+    <div class="asset">
+      <img src="res/toprow.png">
+    </div>
+    <p>The two top left buttons tab between <span>PERFORMANCE</span> and <span>EFFECTS</span> views
+      of the upper panel. The <span>ACTIVATE FX</span> toggle activates (green)
+      or bypasses (as shown above) the effects section. The <span>SCALE</span>
+      combobox activates an alternative tuning system, or resets it back to the factory default equal
+      temperament with option "synergy". <span>FLAT | WOOD</span> toggles between the two provided skins.
+    </p>
+
+    <h3>Upper Panel : PERFORMANCE View</h3>
+    <div class="asset">
+      <img src="res/upper-perf.png">
+    </div>
+    <p>The oscillator board is monophonic, but capable of spreading individual notes
+      to left, right, or both channels. Synergia's effects section is stereophonic.
+      The two leftmost knobs are used to set channel specific volume levels. The
+      <span>LINK</span> toggle - once activated as green - moves both knobs in tandem. The rest of the controls work as detailed
+      in the Synergy user manual. Pitch bend and modulation section is currently disabled.
+      Bend and modulation work via midi though.</p>
+
+    <h3>Upper Panel : EFFECTS View</h3>
+    <div class="asset">
+      <img src="res/upper-fx.png">
+    </div>
+    <p>The Effects are cascaded in series from left to right. Each effect may be activated individually
+      by clicking on its caption (green indicates active state). Note that the top row
+      <span>ACTIVATE FX</span> toggle needs to be on as well.
+    </p>
+
+    <div id="fx">
+    <p><span>EQ</span> has three identically parametrized biquad bands. The symbols at the top of
+      each band select highpass, peaking/notch and lowpass <i>modes</i>. the band is in bypass mode
+      if none of the mode symbols is selected. <i>Freq</i> and <i>Q</i> knobs adjust cutoff/center
+      frequencies and resonance/bandwith of the biquad, respectively. <i>Gain</i> is available only
+      in peaking/notch mode: center position denotes no gain, positions to the left control notch
+      depth, and positions to the right adjust peak height.
+    </p>
+    <p><span>AUTOPAN</span> pans the signal in stereo space. it is driven by a triangle or square
+      <i>shape</i>d LFO. <i>Depth</i> controls stereo width of panning, while <i>Rate</i> sets the
+      LFO speed.
+    </p>
+    <p><span>SPREAD</span> thickens the sound by mixing in slightly <i>Detune</i>d phantom
+      oscillators. <i>Amount</i> controls the level of the phantoms, and expands the
+      spatial image of the mix. Middle position gives full stereo spread, while higher values
+      work as a "dimension expander".
+    </p>
+    <p><span>DELAY</span> provides separate controls for each channel (<i>L</i> or <i>R</i>), or
+      links the controls together when <i>LR</i> is active. <i>Mix</i> controls the dry/wet ratio,
+      and <i>Time</i> sets the delay amount. The center position of <i>Feedback</i> knob denotes
+      zero feedback. positions to the left control cross-channel feedback level, and positions to
+      the right do the same for straight feedback effect.
+    </p>
+    <p><span>PHASER</span> <i>Mix</i> sets dry/wet ratio, <i>Depth</i> controls notch depths, and
+      <i>Feedback</i> the intensity of the effect (zero at noon, left for classic negative feedback).
+      <i>Rate</i> sets driving LFO speed, and finally, <i>Freq</i> sets the the notch sweep range.
+    </p>
+    <p><span>REVERB</span> <i>Mix</i> sets dry/wet ratio, <i>Width</i> sets the stereo width,
+      <i>Size</i> controls the room size, and <i>Damp</i> the high frequency damping.
+    </p>
+    </div>
+
+    <h3>Lower Panel</h3>
+    <div class="asset">
+      <img src="res/lower-panel.png">
+    </div>
+    <p>The <span>BANK/VOICE</span> section at the right side manages the presets. the <i>upper combobox</i>
+      switches banks by activating the internal sound rom (INTERNAL.ROM) or one of the
+      CRT format cartridge files. Initially, only INTERNAL.ROM/CRT are available. More CRT format
+      files may be added by drag'n'dropping them onto the interface, as described in the Quick Start
+      section above.
+      The <i>lower combobox</i> selects one of the 24 available presets in the active bank. It duplicates
+      the functionality of the <span>VOICE</span> switches.
+    </p>
+    <p>The <i>Cartridge</i> switch toggles between internal and cartridge banks, and is linked with the
+      state of the upper combobox. The <i>VRAM</i> switch activates yet another bank which is managed
+      by the external control software. Once activated, Synergia appears as a target device in the
+      Synergize patch editor/librarian, which can then be used to manage the VRAM bank, and edit
+      the presets in more detail.
+    </p>
+    <p>The remaining sections in the lower panel work as in hardware Synergy, and are detailed in
+      the user manual.
+    </p>
+  </section>
+
+  <section id="credits" class="hidden">
+    <h2>Credits</h2>
+    <ul>
+      <li><b>Synergia</b> plugin, emulation, oscillator board, gui and fx by <i>Jari Kleimola</i></li>
+      <li>Synergy v3.21 romset by the original <i>Synergy team</i></li>
+      <li><a href="https://chinenual.github.io/synergize/" target="_blank">Synergize</a> patch editor/librarian by <i>Steve Tynor</i></li>
+      <li>EQ and Delay effects based on <a href="https://github.com/ffAudio/Frequalizer" target="_blank">Frequalizer</a>
+        and <a href="https://github.com/ffAudio/ffTapeDelay" target="_blank">ffTapeDelay</a> by <i>Daniel Walz</i></li>
+      <li>Spread effect based on <i>lkjb-plugins</i>
+        <a href="https://github.com/lkjbdsp/lkjb-plugins/tree/master/SuperSpread" target="_blank">SuperSpread</a></li>
+      <li><a href="https://github.com/juce-framework/JUCE" target="_blank">JUCE 6</a>,
+        Phaser and Reverb effects by <i>juce team</i> at ROLI/iLok</li>
+      <li><a href="https://github.com/Anthony-Nicholls/jucey_bonjour" target="_blank">Bonjour</a> JUCE module by <i>Anthony Nicholls</i></li>
+      <li><a href="https://surge-synth-team.org/tuning-library/" target="_blank">Tunings</a> JUCE module by <i>surge-team</i></li>
+      <li>Wendy Carlos microtonal scales from <a href="http://www.huygens-fokker.org/scala" target="_blank">scala library</a> by <i>Manuel Op de Coul</i></li>
+      <li><a href="https://github.com/fefanto/fontaudio" target="_blank">fontaudio</a> by <i>fefanto</i></li>
+      <li>special thanks to beta testers</li>
+    </ul>
+
+    <h2 style="margin-top:20;">Legal</h2>
+    <p>Synergia embeds the original Synergy v3.21 roms, which to the best of my knowledge are in
+      the public domain. Distributing the roms with the plugin simplifies installation a lot,
+      and thus helps to keep Synergy alive! However, if you own the copyrights to the roms and oppose
+      this strategy, please email me and i will remove the roms from the distribution.
+    </p>
+  </section>
+
+  <section id="beta" class="hidden">
+    <h2>Issue reports and Feedback</h2>
+    <p>Please email any issues, feedback and ideas to <a href="mailto:jariseon@yahoo.com">jariseon -at- yahoo.com</a>, or join the
+      <i>#synergia</i> channel in synergize slack group. To join the group, just send an email to
+      "support -at- chinenual.com" to get an invite from Steve. If you have a github account, it is also possible to
+      raise an issue directly
+      <a href="https://github.com/jariseon/synergia/issues" target="_blank">here</a>.
+    </p>
+    <p>To make bug fixing faster, pls include your operating system and DAW brand/version in the issue.
+      Thanks!
+    </p>
+    <h2>Notes</h2>
+    <p>The plugin emulates the z80 cpu at the original clock frequency, which requires a fairly large
+      <i>buffer size</i>. I've been happy with 512 samples @ 48kHz, but if you are experiencing
+      glitches, extending the buffer size further should help. I'm exploring various optimization options
+      to hopefully lower the buffer size requirement in a future version.
+    </p>
+    <p><i>Microtonal support</i> is still preliminary, and the keyboard mappings do not yet work properly:
+      the just tunings require a key-specific mapping (e.g., a mapping made for C major
+      sounds out of tune in Eb major without such a kbm setting). So far I've planned two options for
+      this: A) an extra one octave virtual
+      keyboard at the bottom-left corner of the display for manual key switching, and B) a chord
+      analyzer that deduces the key from currently held midi notes to make the switch automatically.
+      Other ideas are most welcome.
+    </p>
+    <p>I've not yet analyzed Synergy's aliasing footprint. Based on Kevin Doren's original
+      filter plots i'm currently using a linear-phase <i>antialiasing filter</i> with the response
+      shown below. The filter starts a steep roll off after 12kHz, and goes a bit deeper than what was presented
+      in Kevin's plots. I need to most probably tweak it after i get more captures from a real Synergy.
+    </p>
+    <div class="asset" style="padding:20px; max-width:400px;">
+      <img src="res/aafilter.png" style="border:1px solid #000;">
+    </div>
+  </section>
+  </main>
+</body>
+</html>
