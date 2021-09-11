@@ -75,9 +75,10 @@
     <div id="subtitle">dki Synergy emulation</div>
     <ul>
       <li id="menu-home" class="active">home</li>
+      <li id="menu-download">download</li>
       <li id="menu-docs">docs</li>
       <li id="menu-credits">credits</li>
-      <li id="menu-beta">for beta testers</li>
+      <li id="menu-contact">contact</li>
     </ul>
   </nav>
 
@@ -86,32 +87,27 @@
       <img src="res/synergia.png">
     </div>
     <p><b>SYNERGIA</b> emulates the
-      <a href="https://encyclotronic.com/synthesizers/digital-keyboards/digital-keyboards-synergy-r458/" target="_blank">
+      <a href="http://www.vintagesynth.com/misc/synergy.php" target="_blank">
       dki Synergy</a> synthesizer as a VST3/AU plugin.
       The original Synergy was released in 1982 as one of the first commercial digital synthesizers,
       featuring additive and FM synthesis in its core.
       It appears on several Wendy Carlos' works, including the <i>Tron</i> soundtrack and the classic
       <i>Beauty in the Beast</i> album, as well as on Donald Fagen's first solo album <i>Nightfly</i>.
       Synergy is based on earlier
-      <a href="https://encyclotronic.com/synthesizers/digital-keyboards/crumar-general-development-system-gds-r457/" target="_blank">
+      <a href="https://www.polynominal.com/Crumar-GDS/" target="_blank">
       Crumar GDS</a> and Bell Labs
       <a href="https://en.wikipedia.org/wiki/Bell_Labs_Digital_Synthesizer" target="_blank">
       Alles Machine</a> designs.
     </p>
-    <p><b>Synergia</b> plugin attempts to reproduce Synergy's sound as accurately as possible.
-      The plugin runs the original eprom binary in an emulated z80 environment, and models the discrete
+    <p>The plugin attempts to reproduce Synergy's sound as accurately as possible.
+      It runs the original eprom binary in an emulated z80 environment, and models the discrete
       oscillator board in integer arithmetic. Other subsystems such as the front panel, keyboard,
       sequencer, cartridge, midi and external control ports are modeled as well. Analog board
       antialiasing filter's linear properties are approximated, but nonlinearities of the DAC,
-      filter and amp sections are yet to be implemented. The plugin has preliminary support for
+      filter and amp sections are yet to be implemented. The plugin has experimental support for
       Wendy Carlos' custom microtonal Synergy build.
     </p>
-    <p>The plugin is currently in beta testing. The emulation is already quite accurate as shown by the
-      screenshots below, but i want to still perfect the ramps before making a public
-      release. The downloads will appear here in early 2021.
-      For more info contact <a href="mailto:jariseon@yahoo.com">jariseon -at- yahoo.com</a>
-    </p>
-    <p style="margin-top:30px;">The spectrograms of a simple dynamic two-operator FM stack below compare a
+    <p >The spectrograms of a simple dynamic two-operator FM stack below compare a
       hardware Synergy (top) vs. emulation (bottom). Original spectrograms by Ross Totino, cropped to
       mono for easier observation.
     </p>
@@ -120,31 +116,60 @@
     </div>
   </section>
 
-  <section id="docs" class="hidden">
-    <h2>Quick Start</h2>
-    <h3>installation</h3>
+  <section id="download" class="hidden">
+    <h2>Download</h2>
+		<p>
+			<div><a href="https://drive.google.com/file/d/1SAByEghKf8aAnjU2ZE8tPTNzwAMo5zjB/view?usp=sharing/" target="_blank">Mac</a> (requires OSX 10.13 - 10.15, later versions still untested)</div>
+			<div><a href=" https://1drv.ms/u/s!AtGaAPvKqUHEyzqmaUzdkTs9-2V9?e=U0cACU" target="_blank">Win</a> &nbsp;(requires Windows 10)</div>
+		</p>
+    <h2>Installation</h2>
     <p>The downloaded zip file contains a Mac or Windows installer for standalone, vst3
-      and au plugins. Double-click the pkg (Mac) or exe (Windows) file and follow the installer wizard.
-      The binaries are unsigned, so Catalina users might need an additional step as explained in this
+      and au plugins. Unzip and double-click the pkg (Mac) or exe (Windows) file to launch the installer wizard.
+      The binaries are unsigned, so OSX Catalina users might need an additional step as explained in this
       brief <a href="https://www.youtube.com/watch?v=AHoTH-OWGnA" target="_blank">video</a>.
     </p>
-
-    <h3>Synergy cartridge images</h3>
-    <p><b>Synergia</b> supports CRT files in original Synergy cartridge format. These can be found
-      online, or prepared using the
-      <a href="https://chinenual.github.io/synergize/" target="_blank">Synergize</a> patch
-      editor/librarian. The CRT files are variable length, around 8kB in size.
-    </p>
+		<h3>ROMs</h3>
+		<p><b>Synergia</b> runs the original Synergy ROM images (v3.21 and v3.22 are supported). Since the status
+			of the ROM copyright is unknown, the ROMs
+			need to be downloaded and installed separately. v3.22 ROMs can be downloaded from groups.io
+			<a href="https://groups.io/g/synergy-synth" target="_blank">Synergy community pages</a>. Access requires signing
+			up for a free account. Once logged in:
+			<ul style="list-style:decimal; margin-left:25px;">
+				<li>download four .dat files from groups.io's Files/Firmware section</li>
+				<li>Mac: drop the downloaded files on top of Synergia's GUI</li>
+				<li>Windows: copy the downloaded files to Synergia's roms folder (shortcut is on desktop)</li>
+			</ul>
+		</p>
+		<p>Important: on <span style="font-style:italic">Windows</span> it is strongly recommended that the ROMs are installed before the plugin
+			is first launched. Failing to do so may crash the DAW host! Having to download and install the ROMs
+			separately is definitely inconvenient, but luckily it needs to be done only once.
+		</p>
+    <h2>Presets</h2>
+		<p>The groups.io community site also hosts a collection of Synergy cartridges, so while still logged in, maybe
+			download those as well. Cartridge CRT files are contained in Files/SynergyVoiceLibrary.zip.
+		</p>
     <p>One or more CRT fies may be dropped onto the plugin gui to make them appear in the
       <span>BANK</span> combobox.
       Mac version also accepts a folder of CRT files. When dropped, all CRT files contained in the folder
-      become available in the current session, as well as in future launches of the plugin. In Windows,
-      the related cartridges folder is located in Application Data/username/Roaming/Synergia folder.
+      become available in the current session, as well as in future launches of the plugin. On Windows,
+      the related cartridges folder is located inside the Synergia folder that appears on the desktop
+			after installation.
     </p>
+		<p>
+			Presets may also be prepared using the
+      <a href="https://chinenual.github.io/synergize/" target="_blank">Synergize</a> patch
+      editor/librarian.
+		</p>
+    <h2 style="margin-top:20px;">Releases</h2>
+    <h4>1.00 <span>(2021-09-11)</span></h4>
+    <p style="font-size:0.8rem; margin-bottom:7px;">
+      first public release</p>
+  </section>
 
-    <h2 style="margin-top:20;">Operation</h2>
+  <section id="docs" class="hidden">
+    <h2 style="margin-top:0;">Operation</h2>
     <p>The operation of the plugin follows the hardware Synergy as explained in the original
-      <a href="https://encyclotronic.com/uploads/13823c33de54c6717622a56b9850f0df.pdf" target="_blank">
+      <a href="https://www.scribd.com/document/49446705/Digital-Keyboards-Synergy-Manual" target="_blank">
       owner's manual</a>. Plugin specific details are described briefly below. <span class="note">
       Note: missing pages from section 13-5 onwards can be found in the
       <a href="http://www.s-systems-inc.com/pubs/Strawn_Synergy_Users_Manual.pdf" target="_blank">
@@ -244,13 +269,35 @@
     <p>The remaining sections in the lower panel work as in hardware Synergy, and are detailed in
       the user manual.
     </p>
+
+    <h2>Notes</h2>
+    <p>The plugin emulates the z80 cpu at the original clock frequency, which requires a fairly large
+      <i>buffer size</i>. I've been happy with 512 samples @ 48kHz, but if you are experiencing
+      glitches, extending the buffer size further should help. I'm exploring various optimization options
+      to hopefully lower the buffer size requirement in a future version.
+    </p>
+    <p><i>Microtonal support</i> is still experimental.
+			The small keyboard icon at left side of the SCALE combobox activates scale root mode,
+			in which the lowest full octave of the soft keyboard selects the scale root tone (Synergy's scales
+			are limited to 12 notes). in scale root mode each root note scale may be detuned separately
+			using the master tune knob. scl and kbm files may be dropped on top of the GUI, or they may be
+			copied directly into Synergy's scales folder.
+    </p>
+    <p>I've not yet analyzed Synergy's aliasing footprint. Based on Kevin Doren's original
+      filter plots i'm currently using a linear-phase <i>antialiasing filter</i> with the response
+      shown below. The filter starts a steep roll off after 12kHz, and goes a bit deeper than what was presented
+      in Kevin's plots. Nonlinearities remain unmodelled.
+    </p>
+    <div class="asset" style="padding:20px; max-width:400px;">
+      <img src="https://raw.githubusercontent.com/jariseon/synergia/master/docs/res/aafilter.png" style="border:1px solid #000;">
+    </div>
   </section>
 
   <section id="credits" class="hidden">
     <h2>Credits</h2>
     <ul>
       <li><b>Synergia</b> plugin, emulation, oscillator board, gui and fx by <i>Jari Kleimola</i></li>
-      <li>Synergy v3.21 romset by the original <i>Synergy team</i></li>
+      <li>Synergy v3.21/v3.22 romset by the original <i>Synergy team</i></li>
       <li>Synergy <a href="http://www.s-systems-inc.com/pubs/Strawn_Synergy_Users_Manual.pdf" target="_blank">Owner's Manual</a> by <i>John Strawn</i></li>
       <li><a href="https://chinenual.github.io/synergize/" target="_blank">Synergize</a> patch editor/librarian by <i>Steve Tynor</i></li>
       <li>EQ and Delay effects based on <a href="https://github.com/ffAudio/Frequalizer" target="_blank">Frequalizer</a>
@@ -261,20 +308,14 @@
         Phaser and Reverb effects by <i>juce team</i> at ROLI/iLok</li>
       <li><a href="https://github.com/Anthony-Nicholls/jucey_bonjour" target="_blank">Bonjour</a> JUCE module by <i>Anthony Nicholls</i></li>
       <li><a href="https://surge-synth-team.org/tuning-library/" target="_blank">Tunings</a> JUCE module by <i>surge-team</i></li>
-      <li>Wendy Carlos microtonal scales from <a href="http://www.huygens-fokker.org/scala" target="_blank">scala library</a> by <i>Manuel Op de Coul</i></li>
+      <li>microtonal scales by <i>Ramiro Tunin</i>, <a href="http://www.huygens-fokker.org/scala" target="_blank">scala library</a> by <i>Manuel Op de Coul</i></li>
+      <li>icon based on <i>spearheart0</i> <a href="https://www.vecteezy.com/vector-art/338760-triquetra-shape-illustration" target="_blank">EEZY</a></li>
       <li><a href="https://github.com/fefanto/fontaudio" target="_blank">fontaudio</a> by <i>fefanto</i></li>
       <li>special thanks to beta testers</li>
     </ul>
-
-    <h2 style="margin-top:20;">Legal</h2>
-    <p>Synergia embeds the original Synergy v3.21 roms, which to the best of my knowledge are in
-      the public domain. Distributing the roms with the plugin simplifies installation a lot,
-      and thus helps to keep Synergy alive! However, if you own the copyrights to the roms and oppose
-      this strategy, please email me and i will remove the roms from the distribution.
-    </p>
   </section>
 
-  <section id="beta" class="hidden">
+  <section id="contact" class="hidden">
     <h2>Issue reports and Feedback</h2>
     <p>Please email any issues, feedback and ideas to <a href="mailto:jariseon@yahoo.com">jariseon -at- yahoo.com</a>, or join the
       <i>#synergia</i> channel in synergize slack group. To join the group, just send an email to
@@ -282,54 +323,6 @@
       raise an issue directly
       <a href="https://github.com/jariseon/synergia/issues" target="_blank">here</a>.
     </p>
-    <p>To make bug fixing faster, pls include your operating system and DAW brand/version in the issue.
-      Thanks!
-    </p>
-    <h2>Notes</h2>
-    <p>The plugin emulates the z80 cpu at the original clock frequency, which requires a fairly large
-      <i>buffer size</i>. I've been happy with 512 samples @ 48kHz, but if you are experiencing
-      glitches, extending the buffer size further should help. I'm exploring various optimization options
-      to hopefully lower the buffer size requirement in a future version.
-    </p>
-    <p><i>Microtonal support</i> is still preliminary, and the keyboard mappings do not yet work properly:
-      the just tunings require a key-specific mapping (e.g., a mapping made for C major
-      sounds out of tune in Eb major without such a kbm setting). So far I've planned two options for
-      this: A) an extra one octave virtual
-      keyboard at the bottom-left corner of the display for manual key switching, and B) a chord
-      analyzer that deduces the key from currently held midi notes to make the switch automatically.
-      Other ideas are most welcome.
-    </p>
-    <p>I've not yet analyzed Synergy's aliasing footprint. Based on Kevin Doren's original
-      filter plots i'm currently using a linear-phase <i>antialiasing filter</i> with the response
-      shown below. The filter starts a steep roll off after 12kHz, and goes a bit deeper than what was presented
-      in Kevin's plots. I need to most probably tweak it after i get more captures from a real Synergy.
-    </p>
-    <div class="asset" style="padding:20px; max-width:400px;">
-      <img src="https://raw.githubusercontent.com/jariseon/synergia/master/docs/res/aafilter.png" style="border:1px solid #000;">
-    </div>
-    <h2 style="margin-top:20px;">Releases</h2>
-    <h4>beta 0.97a <span>(2020-12-21)</span></h4>
-    <p style="font-size:0.8rem; margin-bottom:7px;">
-      fixed au validation bug (mac only)</p>
-    <h4>beta 0.97 <span>(2020-12-04)</span></h4>
-    <p style="font-style:italic; font-size:0.8rem; margin-bottom:7px;">
-      when starting the standalone first time after install, pls reset Synergia by pressing
-      RESTORE - SAVE. This needs to be done only once (the patch format of 097 is
-      incompatible with the old one).</p>
-    <ul>
-      <li>persist state with host song</li>
-      <li>render with small buffer sizes</li>
-      <li>select voice on startup</li>
-      <li>improved (albeit still imperfect) ramp accuracy</li>
-      <li>more robust synergize communication</li>
-      <li>windows : asio support</li>
-      <li>windows : installs into a shared folder</li>
-      <li>windows : dragging files does not scroll the gui</li>
-    </ul>
-    <h4>beta 0.96 <span>(2020-11-03)</span></h4>
-    <ul>
-      <li>first release</li>
-    </ul>
   </section>
   </main>
 </body>
